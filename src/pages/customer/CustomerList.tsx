@@ -2,6 +2,7 @@ import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader,
 import { add, close, pencil } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import searchCustomers, { removeCustomer, saveCustomer } from './CustomerApi'
 // import ExploreContainer from '../../components/ExploreContainer';
 
 const CustormerList: React.FC = () => {
@@ -12,28 +13,28 @@ const CustormerList: React.FC = () => {
 
     useEffect(() => {
         search();
-    }, []);
+    }, [clientes]);
 
-    const search = () => {
-        const datosDeEjemplo = [
-            {
-                id: '1',
-                firstname: 'Germán',
-                lastname: 'Ortiz',
-                email: 'er@gmail.com',
-                phone: '515151',
-                address: 'Av 12'
-            },
-            {
-                id: '2',
-                firstname: 'Ilda',
-                lastname: 'Martinez',
-                email: 'er@gmail.com',
-                phone: '123123',
-                address: 'K 18'
-            }
-        ];
-        setClientes(datosDeEjemplo);
+    const search = () => {        
+        let result = searchCustomers();
+        setClientes(result);
+    }
+
+    const remove = (id:string) =>{
+        removeCustomer(id);
+        search();
+    }
+
+    const pruebaLocalStorage = () =>{
+        const ejemplo = {
+            id: '1',
+            firstname: 'Germán',
+            lastname: 'Ortiz',
+            emali: 'germ.ortiz@gmail.com',
+            phone: '1231231',
+            addres: 'Av 5'
+        }
+        saveCustomer(ejemplo);
     }
 
     return (
@@ -87,7 +88,8 @@ const CustormerList: React.FC = () => {
                                         <IonButton color="primary" fill='clear'>
                                             <IonIcon icon={pencil} slot='icon-only' />
                                         </IonButton>
-                                        <IonButton color="danger" fill='clear'>
+                                        <IonButton color="danger" fill='clear'
+                                        onClick={()=> remove(cliente.id)}>
                                             <IonIcon icon={close} slot='icon-only' />
                                         </IonButton>
                                     </IonCol>
@@ -99,6 +101,14 @@ const CustormerList: React.FC = () => {
 
                         </IonGrid>
                     </IonCard>
+
+                    <IonButton onClick={pruebaLocalStorage} color="danger" fill='clear'>
+                                            Prueba Local Storage
+                                        </IonButton>
+
+
+
+                    
                 </IonContent>
 
 

@@ -1,19 +1,19 @@
 import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { add, close, pencil } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import searchCustomers, { removeCustomer, saveCustomer } from './CustomerApi'
 // import ExploreContainer from '../../components/ExploreContainer';
 
 const CustormerList: React.FC = () => {
 
     const { name } = useParams<{ name: string; }>();
-
     const [clientes, setClientes] = useState<any>([]);
+    const history = useHistory();
 
     useEffect(() => {
         search();
-    }, [clientes]);
+    }, [history.location.pathname]);
 
     const search = () => {        
         let result = searchCustomers();
@@ -23,6 +23,13 @@ const CustormerList: React.FC = () => {
     const remove = (id:string) =>{
         removeCustomer(id);
         search();
+    }
+
+    const addCustomer= () =>{
+        history.push('/page/customers/new');
+    }
+    const editCustomer= (id:string) =>{
+        history.push('/page/customers/'+id);
     }
 
     const pruebaLocalStorage = () =>{
@@ -62,7 +69,7 @@ const CustormerList: React.FC = () => {
                         <IonTitle>Gestión de Clientes</IonTitle>
 
                         <IonItem>
-                            <IonButton color='primary' fill='solid' slot='end' size='default'>
+                            <IonButton onClick={addCustomer} color='primary' fill='solid' slot='end' size='default'>
                                 <IonIcon icon={add} />
                                 Agregar Cliente
                             </IonButton>
@@ -85,7 +92,8 @@ const CustormerList: React.FC = () => {
                                     <IonCol>{cliente.phone}</IonCol>
                                     <IonCol>{cliente.address}</IonCol>
                                     <IonCol>
-                                        <IonButton color="primary" fill='clear'>
+                                        <IonButton color="primary" fill='clear'
+                                        onClick={() => editCustomer(cliente.id)}>
                                             <IonIcon icon={pencil} slot='icon-only' />
                                         </IonButton>
                                         <IonButton color="danger" fill='clear'

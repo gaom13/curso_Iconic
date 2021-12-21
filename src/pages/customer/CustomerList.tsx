@@ -62,8 +62,6 @@ const CustormerList: React.FC = () => {
                     </IonToolbar>
                 </IonHeader>
 
-
-
                 <IonContent>
                     <IonCard>
                         <IonTitle>Gestión de Clientes</IonTitle>

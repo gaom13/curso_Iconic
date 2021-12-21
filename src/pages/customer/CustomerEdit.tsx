@@ -14,17 +14,20 @@ const CustomerEdit: React.FC = () => {
     useEffect(() => {
         search();
     }, []);
-    
+
 
     const search = () => {
-        if(id !=='new'){
+        if (id !== 'new') {
             let result = searchCustomerById(id);
             console.log(result.email);
             setCustomer(result);
+        }else{
+            setCustomer({});
         }
+        console.log("EDIT: "+customer);
     }
 
-    const save = () =>{        
+    const save = () => {
         saveCustomer(customer);
         history.push('/page/customers');
     }
@@ -50,80 +53,84 @@ const CustomerEdit: React.FC = () => {
 
                 <IonContent>
                     <IonCard>
-                        <IonTitle>{id === 'new' ? 'Agregar Cliente': 'Editar Cliente'}</IonTitle>
+                        <IonTitle>{id === 'new' ? 'Agregar Cliente' : 'Editar Cliente'}</IonTitle>
 
-                        <IonRow>
-                            <IonCol>
-                                <IonItem>
-                                    <IonLabel position="stacked">Nombre</IonLabel>
-                                    <IonInput 
-                                        required
-                                        placeholder="Enter Input"
-                                        onIonChange={e => customer.firstname = e.detail.value} 
-                                        value={customer.firstname}
-                                    >
-                                    </IonInput>
-                                </IonItem>
-                            </IonCol>
+                        <form method='POST'>
+                            <IonRow>
+                                <IonCol>
+                                    <IonItem>
+                                        <IonLabel position="stacked">Nombre</IonLabel>
+                                        <IonInput
+                                            required
+                                            placeholder="Enter Input"
+                                            onIonChange={e => customer.firstname = e.detail.value}
+                                            value={customer.firstname}
+                                        >
+                                        </IonInput>
+                                    </IonItem>
+                                </IonCol>
 
-                            <IonCol>
-                                <IonItem>
-                                    <IonLabel position="stacked">Apellido</IonLabel>
-                                    <IonInput 
-                                        onIonChange={e => customer.lastname = e.detail.value} 
-                                        value={customer.lastname}> 
-                                    </IonInput>
-                                </IonItem>
-                            </IonCol>
-                        </IonRow>
+                                <IonCol>
+                                    <IonItem>
+                                        <IonLabel position="stacked">Apellido</IonLabel>
+                                        <IonInput
+                                            required
+                                            onIonChange={e => customer.lastname = e.detail.value}
+                                            value={customer.lastname}>
+                                        </IonInput>
+                                    </IonItem>
+                                </IonCol>
+                            </IonRow>
 
-                        <IonRow>
-                            <IonCol>
-                                <IonItem>
-                                    <IonLabel position="stacked">Email</IonLabel>
-                                    <IonInput 
-                                        type='email'
-                                        onIonChange={e => customer.email = e.detail.value} 
-                                        value={customer.email}> 
-                                    </IonInput>
-                                </IonItem>
-                            </IonCol>
+                            <IonRow>
+                                <IonCol>
+                                    <IonItem>
+                                        <IonLabel position="stacked">Email</IonLabel>
+                                        <IonInput
+                                            type='email'
+                                            onIonChange={e => customer.email = e.detail.value}
+                                            value={customer.email}>
+                                        </IonInput>
+                                    </IonItem>
+                                </IonCol>
 
-                            <IonCol>
-                                <IonItem>
-                                    <IonLabel position="stacked">Dirección</IonLabel>
-                                    <IonInput 
-                                        onIonChange={e => customer.address = e.detail.value} 
-                                        value={customer.address}> 
-                                    </IonInput>
-                                </IonItem>
-                            </IonCol>
+                                <IonCol>
+                                    <IonItem>
+                                        <IonLabel position="stacked">Dirección</IonLabel>
+                                        <IonInput
+                                            onIonChange={e => customer.address = e.detail.value}
+                                            value={customer.address}>
+                                        </IonInput>
+                                    </IonItem>
+                                </IonCol>
 
-                        </IonRow>
+                            </IonRow>
 
-                        <IonRow>
-                            <IonCol>
-                                <IonItem>
-                                    <IonLabel position="stacked">Teléfono</IonLabel>
-                                    <IonInput 
-                                        
-                                        onIonChange={e => customer.phone = e.detail.value} 
-                                        value={customer.phone}> 
-                                    </IonInput>
-                                </IonItem>
-                            </IonCol>
+                            <IonRow>
+                                <IonCol>
+                                    <IonItem>
+                                        <IonLabel position="stacked">Teléfono</IonLabel>
+                                        <IonInput
 
-                            <IonCol>
-                            </IonCol>
+                                            onIonChange={e => customer.phone = e.detail.value}
+                                            value={customer.phone}>
+                                        </IonInput>
+                                    </IonItem>
+                                </IonCol>
 
-                        </IonRow>
+                                <IonCol>
+                                </IonCol>
 
-                        <IonItem>
-                            <IonButton onClick={save} color='success' fill='solid' slot='end' size='default'>
-                                <IonIcon icon={checkmark} />
-                                Guardar
-                            </IonButton>
-                        </IonItem>
+                            </IonRow>
+
+                            <IonItem>
+                                <IonButton onClick={save} color='success' fill='solid' slot='end' size='default'>
+                                    <IonIcon icon={checkmark} />
+                                    Guardar
+                                </IonButton>
+                            </IonItem>
+                        </form>
+
 
                     </IonCard>
 

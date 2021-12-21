@@ -1,7 +1,0 @@
-{
-  "name": "cursoionic",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react"
-}
